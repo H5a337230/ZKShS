@@ -279,6 +279,8 @@ if __name__=='__main__':
 		There is possibilty to execute custom queries and if you want to search shodan
 		with your own query, you can use ' --cquery <QUERY> ' command.
 		<< I extremly suggest to Read description for query that you want to use. >>
+		OUTPUT STRUCTURE:
+		IP ... PORT ... ISP ... COUNTRY ... RETURNED_DATA
 		'''+Style.RESET_ALL)
 	parser = optparse.OptionParser( version = Tversion )
 	group = OptionGroup(parser,'Filter Options')
