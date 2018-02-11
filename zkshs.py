@@ -210,7 +210,7 @@ def dfilterdefine(dfilter):
 				wholeDF += ''+fc.ipnetm
 		elif (dfarrayND[kount].lower() == df[6]):
 			fc.hostname = str(raw_input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
-			if (fc.city or fc.country or fc.port or fc.os or fc.geo or ipnetm):
+			if (fc.city or fc.country or fc.port or fc.os or fc.geo or fc.ipnetm):
 				wholeDF += ' hostname:'+fc.hostname
 			else:
 				wholeDF += 'hostname:'+fc.hostname
