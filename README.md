@@ -12,3 +12,7 @@ Implemented filters are in 8 main categories:
 8) OTHER
 
 Also, You can use some dynamic filters(city, country, port, os, geo, ip/netmask, hostname, dateab) alongside these filters and for more flexibility you can use your own custom query and combine all 3 filters type(implementerd filters, dynamic filters and your own custom query).
+
+
+
+any ideas and issues are welcomed ;-)
