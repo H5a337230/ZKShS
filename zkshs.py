@@ -508,8 +508,8 @@ if __name__=='__main__':
 	group.add_option('--alertexp', action='store', dest='alert_expire', help='Number of seconds that the alert should be active(OPTIONAL)')
 	group.add_option('--alertid', action='store', dest='alert_id', help='alert id to check its info')
 	group.add_option('--alertin', action='store_true', default=False, dest='alert_info')
-	group.add_option('--dalert', action='store', dest='delete_alert', help='hostname(s) - separated with comma')
-	group.add_option('--lalerts', action='store', dest='list_alerts', help='hostname(s) - separated with comma')
+	group.add_option('--dalert', action='store_true', default=False, dest='delete_alert', help='deleting alert with specified alert id')
+	group.add_option('--lalerts', action='store_true',default=False, dest='list_alerts', help='List whole activated alerts of your account')
 	parser.add_option_group(group)
 	options,_ = parser.parse_args()
 	###
@@ -547,7 +547,7 @@ if __name__=='__main__':
 		alertdel(options.alert_id)
 	###
 	elif (options.list_alerts and not (options.create_alert and options.alert_name and options.alert_target and options.alert_id and options.delete_alert and options.alert_info and options.rdns_IP and options.dns_host and options.honey_ip and options.keyfunk and options.honeycheck and options.fname and options.stfilter and options.dyfilter and options.cqu and options.listf)):
-		alertlist(options.list_alerts)
+		alertlist()
 	###
 	else:
 		parser.print_help()
