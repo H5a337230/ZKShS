@@ -14,5 +14,17 @@ Implemented filters are in 8 main categories:
 Also, You can use some dynamic filters(city, country, port, os, geo, ip/netmask, hostname, dateab) alongside these filters and for more flexibility you can use your own custom query and combine all 3 filters type(implementerd filters, dynamic filters and your own custom query).
 
 
+---------------------------------
+
+UPDATE: 19 jun 2019
+
+adding alert functions, dns, reverse_dns and also honeypot score
+
+
+
+
+
+
+
 
 any ideas and issues are welcomed ;-)
