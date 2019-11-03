@@ -25,28 +25,28 @@ fc = fcls()
 def listFunc(filtype):
 	if (filtype == 'scada'):
 		for fnum in range(len(fc.SCADA_TAGs)):
-			print fc.SCADA_TAGs[fnum]
+			print (fc.SCADA_TAGs[fnum])
 	elif (filtype == 'http'):
 		for fnum in range(len(fc.HTTP_TAGs)):
-			print fc.HTTP_TAGs[fnum]
+			print (fc.HTTP_TAGs[fnum])
 	elif (filtype == 'server'):
 		for fnum in range(len(fc.SERVER_TAGs)):
-			print fc.SERVER_TAGs[fnum]
+			print (fc.SERVER_TAGs[fnum])
 	elif (filtype == 'ftp'):
 		for fnum in range(len(fc.FTP_TAGs)):
-			print fc.FTP_TAGs[fnum]
+			print (fc.FTP_TAGs[fnum])
 	elif (filtype == 'modem/router'):
 		for fnum in range(len(fc.ROUTER_TAGs)):
-			print fc.ROUTER_TAGs[fnum]
+			print (fc.ROUTER_TAGs[fnum])
 	elif (filtype == 'database'):
 		for fnum in range(len(fc.DATABASE_TAGs)):
-			print fc.DATABASE_TAGs[fnum]
+			print (fc.DATABASE_TAGs[fnum])
 	elif (filtype == 'cam'):
 		for fnum in range(len(fc.CAM_TAGs)):
-			print fc.CAM_TAGs[fnum]
+			print (fc.CAM_TAGs[fnum])
 	elif (filtype == 'other'):
 		for fnum in range(len(fc.OTHER_TAGs)):
-			print fc.OTHER_TAGs[fnum]
+			print (fc.OTHER_TAGs[fnum])
 	elif (filtype == 'dynamic'):
 		fc.dhelp()
 	else:
