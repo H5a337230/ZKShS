@@ -16,7 +16,7 @@ Also, You can use some dynamic filters(city, country, port, os, geo, ip/netmask,
 
 ---------------------------------
 
-UPDATE: june 2019
+UPDATE: JUN 2019
 
 adding alert functions, dns, reverse_dns and also honeypot score
 
@@ -27,7 +27,7 @@ adding alert functions, dns, reverse_dns and also honeypot score
 ---------------------------------
 
 
-UPDATE: OCTOBER 2019
+UPDATE: OCT 2019
 
 python3 compatibility
 
