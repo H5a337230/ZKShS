@@ -178,46 +178,70 @@ def dfilterdefine(dfilter):
 	dfarrayND = list(set(dfarray))
 	for kount in range(len(dfarrayND)):
 		if (dfarrayND[kount].lower() == df[0]):
-			fc.city = str(raw_input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
+			try:
+				fc.city = str(raw_input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
+			except:
+				fc.city = str(input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
 			wholeDF = 'city:'+fc.city
 		elif (dfarrayND[kount].lower() == df[1]):
-			fc.country = str(raw_input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
+			try:
+				fc.country = str(raw_input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
+			except:
+				fc.country = str(input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
 			if (fc.city):
 				wholeDF += ' country:'+fc.country
 			else:
 				wholeDF += 'country:'+fc.country
 		elif (dfarrayND[kount].lower() == df[2]):
-			fc.port = str(raw_input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
+			try:
+				fc.port = str(raw_input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
+			except:
+				fc.port = str(input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
 			if (fc.city or fc.country):
 				wholeDF += ' port:'+fc.port
 			else:
 				wholeDF += 'port:'+fc.port
 		elif (dfarrayND[kount].lower() == df[3]):
-			fc.os = str(raw_input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
+			try:
+				fc.os = str(raw_input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
+			except:
+				fc.os = str(input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
 			if (fc.city or fc.country or fc.port):
 				wholeDF += ' os:'+fc.os
 			else:
 				wholeDF += 'os:'+fc.os
 		elif (dfarrayND[kount].lower() == df[4]):
-			fc.geo = str(raw_input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
+			try:
+				fc.geo = str(raw_input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
+			except:
+				fc.geo = str(input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
 			if (fc.city or fc.country or fc.port or fc.os):
 				wholeDF += ' geo:'+fc.geo
 			else:
 				wholeDF += 'geo:'+fc.geo
 		elif (dfarrayND[kount].lower() == df[5]):
-			fc.ipnetm = str(raw_input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
+			try:
+				fc.ipnetm = str(raw_input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
+			except:
+				fc.ipnetm = str(input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
 			if (fc.city or fc.country or fc.port or fc.os or fc.geo):
 				wholeDF += ' '+fc.ipnetm
 			else:
 				wholeDF += ''+fc.ipnetm
 		elif (dfarrayND[kount].lower() == df[6]):
-			fc.hostname = str(raw_input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
+			try:
+				fc.hostname = str(raw_input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
+			except:
+				fc.hostname = str(input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
 			if (fc.city or fc.country or fc.port or fc.os or fc.geo or fc.ipnetm):
 				wholeDF += ' hostname:'+fc.hostname
 			else:
 				wholeDF += 'hostname:'+fc.hostname
 		elif (dfarrayND[kount].lower() == df[7]):
-			fc.dateab = str(raw_input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
+			try:
+				fc.dateab = str(raw_input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
+			except:
+				fc.dateab = str(input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
 			if (fc.city or fc.country or fc.port or fc.os or fc.geo or fc.ipnetm or fc.hostname):
 				wholeDF += ' '+fc.dateab
 			else:
