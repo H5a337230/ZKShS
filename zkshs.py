@@ -94,12 +94,12 @@ def manFunc(cfil):
 def keyF(ftype,key):
 	if (ftype == 'add'):
 		if (key):
-			kc.kadd(key.lower())
+			kc.kadd(key)
 		else:
 			print (Fore.RED+'[!] For this API-KEY Function, You should provide API-KEY as an input argument'+Style.RESET_ALL)
 	elif (ftype == 'del'):
 		if (key):
-			kc.kdel(key.lower())
+			kc.kdel(key)
 		else:
 			print (Fore.RED+'[!] For this API-KEY Function, You should provide API-KEY as an input argument'+Style.RESET_ALL)
 	elif (ftype == 'help'):
