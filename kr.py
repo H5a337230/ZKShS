@@ -55,7 +55,10 @@ class kre:
         print (Fore.GREEN+'\n[*] Printing API-KEYS:')
         for length in range(len(self.tkeys)):
             print (str(length)+') '+self.tkeys[length])
-        keyindex = int(raw_input(Fore.YELLOW+'\n[?] Enter the index number of key that you want to be used: '))
+        try:
+            keyindex = int(raw_input(Fore.YELLOW+'\n[?] Enter the index number of key that you want to be used: '))
+        except:
+            keyindex = int(input(Fore.YELLOW+'\n[?] Enter the index number of key that you want to be used: '))
         return self.tkeys[keyindex]
 
     def help_menu(self):
