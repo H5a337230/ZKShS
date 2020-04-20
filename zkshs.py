@@ -116,28 +116,28 @@ def shprereq(sfilter,dfilter,cq):   # FinalQ = Final Query = sfilter+cq+dfilter
 		sfilter = ''
 	elif (sfilter):
 		for fnum in range(len(fc.OTHER_TAGs)):
-			if (sfilter == fc.OTHER_TAGs[fnum].lower()):
+			if (sfilter == fc.OTHER_TAGs[fnum]):
 				sfilter = fc.OTHER_TAGs_VAL[fnum]
 		for fnum in range(len(fc.SCADA_TAGs)):
-			if (sfilter == fc.SCADA_TAGs[fnum].lower()):
+			if (sfilter == fc.SCADA_TAGs[fnum]):
 				sfilter = fc.SCADA_TAGs_VAL[fnum]
 		for fnum in range(len(fc.HTTP_TAGs)):
-			if (sfilter == fc.HTTP_TAGs[fnum].lower()):
+			if (sfilter == fc.HTTP_TAGs[fnum]):
 				sfilter = fc.HTTP_TAGs_VAL[fnum]
 		for fnum in range(len(fc.SERVER_TAGs)):
-			if (sfilter == fc.SERVER_TAGs[fnum].lower()):
+			if (sfilter == fc.SERVER_TAGs[fnum]):
 				sfilter = fc.SERVER_TAGs_VAL[fnum]
 		for fnum in range(len(fc.FTP_TAGs)):
-			if (sfilter == fc.FTP_TAGs[fnum].lower()):
+			if (sfilter == fc.FTP_TAGs[fnum]):
 				sfilter = fc.FTP_TAGs_VAL[fnum]
 		for fnum in range(len(fc.ROUTER_TAGs)):
-			if (sfilter == fc.ROUTER_TAGs[fnum].lower()):
+			if (sfilter == fc.ROUTER_TAGs[fnum]):
 				sfilter = fc.ROUTER_TAGs_VAL[fnum]
 		for fnum in range(len(fc.DATABASE_TAGs)):
-			if (sfilter == fc.DATABASE_TAGs[fnum].lower()):
+			if (sfilter == fc.DATABASE_TAGs[fnum]):
 				sfilter = fc.DATABASE_TAGs_VAL[fnum]
 		for fnum in range(len(fc.CAM_TAGs)):
-			if (sfilter == fc.CAM_TAGs[fnum].lower()):
+			if (sfilter == fc.CAM_TAGs[fnum]):
 				sfilter = fc.CAM_TAGs_VAL[fnum]
 	if (not cq):
 		cq = ''
