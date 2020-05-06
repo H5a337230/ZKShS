@@ -15,7 +15,7 @@ from optparse import OptionGroup
 from kr import kre
 from ficls import fcls
 
-Tversion = 'VERSION 0.9'
+Tversion = 'VERSION 1.0.0'
 kc = kre()
 fc = fcls()
 #requests.packages.urllib3.disable_warnings()
@@ -531,7 +531,7 @@ if __name__=='__main__':
 	group.add_option('--alerttarget', action='store', dest='alert_target', help='target IP/netblock for alert')
 	group.add_option('--alertexp', action='store', dest='alert_expire', help='Number of seconds that the alert should be active(OPTIONAL)')
 	group.add_option('--alertid', action='store', dest='alert_id', help='alert id to check its info')
-	group.add_option('--alertin', action='store_true', default=False, dest='alert_info')
+	group.add_option('--alertin', action='store_true', default=False, dest='alert_info', help='alert info command')
 	group.add_option('--dalert', action='store_true', default=False, dest='delete_alert', help='deleting alert with specified alert id')
 	group.add_option('--lalerts', action='store_true',default=False, dest='list_alerts', help='List whole activated alerts of your account')
 	parser.add_option_group(group)
