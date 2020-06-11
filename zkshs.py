@@ -487,7 +487,7 @@ if __name__=='__main__':
 				/____/\/  \/ \__/_| |_\__/   
                                   
 				                        coded by Z3r0''')
-	print (Fore.RED + '''\t\t\t\t\t\t\tCodename - HASHASHIN\n\n''')
+	print (Fore.RED + '''\t\t\t\t\t\t\tCodename - ZEROARY\n\n''')
 	print (Fore.CYAN + '''
 		This is ' ZKShS '. With this you can search shodan without any knowledge about
 		its queries. Most Queries and Filters have been implemented inside that and
