@@ -37,5 +37,13 @@ python3 compatibility
 ---------------------------------
 
 
+UPDATE: JUL 2020
+
+Adding Experimental SMTP Bulk Scanner using shodan
+
+
+
+
+---------------------------------
 
 any ideas and issues are welcomed ;-)
