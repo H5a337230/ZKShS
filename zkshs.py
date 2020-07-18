@@ -12,10 +12,11 @@ from colorama import Fore, Back, Style
 import string
 import itertools
 from optparse import OptionGroup
+import smtplib
 from kr import kre
 from ficls import fcls
 
-Tversion = 'VERSION 1.0.0'
+Tversion = 'VERSION 1.0.3'
 kc = kre()
 fc = fcls()
 #requests.packages.urllib3.disable_warnings()
@@ -159,12 +160,20 @@ def shprereq(sfilter,dfilter,cq):   # FinalQ = Final Query = sfilter+cq+dfilter
 		sys.exit()
 	if (kc.ckfile()):
 		if (len(kc.tkeys) == 1):
-			shmainReq(FinalQ,kc.tkeys[0],options.limitN,options.pageN)
+			#shmainReq(FinalQ,kc.tkeys[0],options.limitN,options.pageN)
+			result = shmainReq(FinalQ,kc.tkeys[0],options.limitN,options.pageN)
+			for Mcount in range(len(result['matches'])):
+				print (Fore.GREEN+str(result['matches'][Mcount]['ip_str'])+'   '+Fore.YELLOW+str(result['matches'][Mcount]['port'])+'   '+Fore.MAGENTA+str(result['matches'][Mcount]['isp'])+'   '+Fore.BLUE+str(result['matches'][Mcount]['location']['country_name'])+'   '+Fore.WHITE+repr(result['matches'][Mcount]['data'])+Style.RESET_ALL)
 		else:
 			apikey = kc.chokey()
-			shmainReq(FinalQ,apikey,options.limitN,options.pageN)
+			#shmainReq(FinalQ,apikey,options.limitN,options.pageN)
+			result = shmainReq(FinalQ,apikey,options.limitN,options.pageN)
+			for Mcount in range(len(result['matches'])):
+				print (Fore.GREEN+str(result['matches'][Mcount]['ip_str'])+'   '+Fore.YELLOW+str(result['matches'][Mcount]['port'])+'   '+Fore.MAGENTA+str(result['matches'][Mcount]['isp'])+'   '+Fore.BLUE+str(result['matches'][Mcount]['location']['country_name'])+'   '+Fore.WHITE+repr(result['matches'][Mcount]['data'])+Style.RESET_ALL)
+		sys.exit()
 	else:
 		print (Fore.RED+'[!] There is something WRONG with Key file(Maybe its EMPTY or Key file NOT EXISTS)'+Style.RESET_ALL)
+		sys.exit()
 
 #################################
 
@@ -179,69 +188,69 @@ def dfilterdefine(dfilter):
 	for kount in range(len(dfarrayND)):
 		if (dfarrayND[kount].lower() == df[0]):
 			try:
-				fc.city = str(raw_input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
+				fc.city = str(raw_input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount].lower()+': '))
 			except:
-				fc.city = str(input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
+				fc.city = str(input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount].lower()+': '))
 			wholeDF = 'city:'+fc.city
 		elif (dfarrayND[kount].lower() == df[1]):
 			try:
-				fc.country = str(raw_input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
+				fc.country = str(raw_input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount].lower()+': '))
 			except:
-				fc.country = str(input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
+				fc.country = str(input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount].lower()+': '))
 			if (fc.city):
 				wholeDF += ' country:'+fc.country
 			else:
 				wholeDF += 'country:'+fc.country
 		elif (dfarrayND[kount].lower() == df[2]):
 			try:
-				fc.port = str(raw_input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
+				fc.port = str(raw_input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount].lower()+': '))
 			except:
-				fc.port = str(input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
+				fc.port = str(input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount].lower()+': '))
 			if (fc.city or fc.country):
 				wholeDF += ' port:'+fc.port
 			else:
 				wholeDF += 'port:'+fc.port
 		elif (dfarrayND[kount].lower() == df[3]):
 			try:
-				fc.os = str(raw_input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
+				fc.os = str(raw_input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount].lower()+': '))
 			except:
-				fc.os = str(input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
+				fc.os = str(input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount].lower()+': '))
 			if (fc.city or fc.country or fc.port):
 				wholeDF += ' os:'+fc.os
 			else:
 				wholeDF += 'os:'+fc.os
 		elif (dfarrayND[kount].lower() == df[4]):
 			try:
-				fc.geo = str(raw_input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
+				fc.geo = str(raw_input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount].lower()+': '))
 			except:
-				fc.geo = str(input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
+				fc.geo = str(input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount].lower()+': '))
 			if (fc.city or fc.country or fc.port or fc.os):
 				wholeDF += ' geo:'+fc.geo
 			else:
 				wholeDF += 'geo:'+fc.geo
 		elif (dfarrayND[kount].lower() == df[5]):
 			try:
-				fc.ipnetm = str(raw_input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
+				fc.ipnetm = str(raw_input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount].lower()+': '))
 			except:
-				fc.ipnetm = str(input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
+				fc.ipnetm = str(input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount].lower()+': '))
 			if (fc.city or fc.country or fc.port or fc.os or fc.geo):
 				wholeDF += ' '+fc.ipnetm
 			else:
 				wholeDF += ''+fc.ipnetm
 		elif (dfarrayND[kount].lower() == df[6]):
 			try:
-				fc.hostname = str(raw_input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
+				fc.hostname = str(raw_input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount].lower()+': '))
 			except:
-				fc.hostname = str(input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
+				fc.hostname = str(input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount].lower()+': '))
 			if (fc.city or fc.country or fc.port or fc.os or fc.geo or fc.ipnetm):
 				wholeDF += ' hostname:'+fc.hostname
 			else:
 				wholeDF += 'hostname:'+fc.hostname
 		elif (dfarrayND[kount].lower() == df[7]):
 			try:
-				fc.dateab = str(raw_input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
+				fc.dateab = str(raw_input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount].lower()+': '))
 			except:
-				fc.dateab = str(input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount]+': '))
+				fc.dateab = str(input(Fore.YELLOW+'[?] Please Enter value for '+dfarrayND[kount].lower()+': '))
 			if (fc.city or fc.country or fc.port or fc.os or fc.geo or fc.ipnetm or fc.hostname):
 				wholeDF += ' '+fc.dateab
 			else:
@@ -276,10 +285,12 @@ def shmainReq(Squery,Skey,limitQ,pageQ):
 		if (responseDATA.get('error', None)):
 			print (Fore.RED+'[!] '+str(responseDATA['error'])+Style.RESET_ALL)
 		else:
-			for Mcount in range(len(responseDATA['matches'])):
-				print (Fore.GREEN+str(responseDATA['matches'][Mcount]['ip_str'])+'   '+Fore.YELLOW+str(responseDATA['matches'][Mcount]['port'])+'   '+Fore.MAGENTA+str(responseDATA['matches'][Mcount]['isp'])+'   '+Fore.BLUE+str(responseDATA['matches'][Mcount]['location']['country_name'])+'   '+Fore.WHITE+repr(responseDATA['matches'][Mcount]['data'])+Style.RESET_ALL)
+			return responseDATA
+			#for Mcount in range(len(responseDATA['matches'])):
+			#	print (Fore.GREEN+str(responseDATA['matches'][Mcount]['ip_str'])+'   '+Fore.YELLOW+str(responseDATA['matches'][Mcount]['port'])+'   '+Fore.MAGENTA+str(responseDATA['matches'][Mcount]['isp'])+'   '+Fore.BLUE+str(responseDATA['matches'][Mcount]['location']['country_name'])+'   '+Fore.WHITE+repr(responseDATA['matches'][Mcount]['data'])+Style.RESET_ALL)
 	except Exception as e:
 		print (Fore.RED+'[!] Failed, Try Again.\t'+str(e)+Style.RESET_ALL)
+		sys.exit()
 
 
 #################################
@@ -478,6 +489,136 @@ def alertlist():
 #################################
 
 
+def POpenRelay(portNum,Msender,Mreceiver,Mdata):
+	Mcontent = '''From: <%s>
+	TO: <%s>
+	Content-Type: text/plain; charset=iso-8859-1
+	%s''' %(Msender,Mreceiver,Mdata)
+	smtpquery = 'smtp port:%s' %portNum
+	if (kc.ckfile()):
+		if (len(kc.tkeys) == 1):
+			smtpRES = shmainReq(smtpquery,kc.tkeys[0],options.limitN,options.pageN)
+		else:
+			apikey = kc.chokey()
+			smtpRES = shmainReq(smtpquery,apikey,options.limitN,options.pageN)
+		for Mcount in range(len(smtpRES['matches'])):
+			if (('smtps' in repr(smtpRES['matches'][Mcount]['data']).lower()) or ('esmtp' in repr(smtpRES['matches'][Mcount]['data']).lower())):
+				smtpTRG = smtplib.SMTP_SSL(port=portNum,timeout = 15)
+				tlsu = True
+			else:
+				smtpTRG = smtplib.SMTP(port=portNum,timeout = 15)
+				tlsu = False
+			try:
+				smtpTRG.connect(str(smtpRES['matches'][Mcount]['ip_str']))
+				if (tlsu):
+					smtpTRG.starttls()
+				smtpTRG.ehlo('google.com')
+				smtpTRG.sendmail(Msender,Mreceiver,Mcontent)
+				smtpTRG.quit()
+				print (Fore.RED+'[!]VULNERABLE[!]'+Style.RESET_ALL)
+			except Exception as e:
+				if (('500' in str(e)) or ('501' in str(e))):
+					print (Fore.YELLOW+str(smtpRES['matches'][Mcount]['ip_str'])+':'+str(portNum)+'\tSyntax Error - Maybe Vulnerable'+Style.RESET_ALL)
+				elif ('503' in str(e)):
+					print (Fore.YELLOW+str(smtpRES['matches'][Mcount]['ip_str'])+':'+str(portNum)+'\tBad sequence of commands, or requires authentication - Maybe Vulnerable'+Style.RESET_ALL)
+				elif ('504' in str(e)):
+					print (Fore.RED+str(smtpRES['matches'][Mcount]['ip_str'])+':'+str(portNum)+'\tCommand parameter is not implemented - Vulnerable'+Style.RESET_ALL)
+				elif (('510' in str(e)) or ('511' in str(e))):
+					print (Fore.YELLOW+str(smtpRES['matches'][Mcount]['ip_str'])+':'+str(portNum)+'\tBad email address - Maybe Vulnerable'+Style.RESET_ALL)
+				elif ('512' in str(e)):
+					print(Fore.YELLOW+str(smtpRES['matches'][Mcount]['ip_str'])+':'+str(portNum)+'\tHost server for the recipient`s domain name cannot be found in DNS - Maybe Vulnerable'+Style.RESET_ALL)
+				elif ('513' in str(e)):
+					print (Fore.YELLOW+str(smtpRES['matches'][Mcount]['ip_str'])+':'+str(portNum)+'\tAddress type is incorrect - Maybe Vulnerable'+Style.RESET_ALL)
+				elif ('530' in str(e)):
+					print (Fore.GREEN+str(smtpRES['matches'][Mcount]['ip_str'])+':'+str(portNum)+'\tAuthentication problem - SAFE'+Style.RESET_ALL)
+				elif ('541' in str(e)):
+					print (Fore.RED+str(smtpRES['matches'][Mcount]['ip_str'])+':'+str(portNum)+'\tThe recipient address rejected your message - Vulnerable'+Style.RESET_ALL)
+				elif ('550' in str(e)):
+					print (Fore.YELLOW+str(smtpRES['matches'][Mcount]['ip_str'])+':'+str(portNum)+'\tNon-existent email address - Maybe Vulnerable'+Style.RESET_ALL)
+				elif ('551' in str(e)):
+					print (Fore.GREEN+str(smtpRES['matches'][Mcount]['ip_str'])+':'+str(portNum)+'\tUser not local or invalid address - relay denied - SAFE'+Style.RESET_ALL)
+				elif ('552' in str(e)):
+					print (Fore.RED+str(smtpRES['matches'][Mcount]['ip_str'])+':'+str(portNum)+'\tExceeded storage allocation - Vulnerable'+Style.RESET_ALL)
+				elif ('553' in str(e)):
+					print (Fore.YELLOW+str(smtpRES['matches'][Mcount]['ip_str'])+':'+str(portNum)+'\tMailbox name invalid - Maybe Vulnerable'+Style.RESET_ALL)
+				elif ('554' in str(e)):
+					print (Fore.YELLOW+str(smtpRES['matches'][Mcount]['ip_str'])+':'+str(portNum)+'\tTransaction has failed - Maybe Vulnerable'+Style.RESET_ALL)
+				else:
+					print(Fore.MAGENTA+str(smtpRES['matches'][Mcount]['ip_str'])+':'+str(portNum)+' - Protocol Problem(try again): \t'+str(e)+Style.RESET_ALL)
+		sys.exit()
+	else:
+		print (Fore.RED+'[!] There is something WRONG with Key file(Maybe its EMPTY or Key file NOT EXISTS)'+Style.RESET_ALL)
+		sys.exit()
+
+
+#################################
+
+
+def noPOpenRelay(Msender,Mreceiver,Mdata):
+	Mcontent = '''From: <%s>
+	TO: <%s>
+	Content-Type: text/plain; charset=iso-8859-1
+	%s''' %(Msender,Mreceiver,Mdata)
+	#smtpquery = 'smtp port:%s' %portNum
+	if (kc.ckfile()):
+		if (len(kc.tkeys) == 1):
+			smtpRES = shmainReq('smtp',kc.tkeys[0],options.limitN,options.pageN)
+		else:
+			apikey = kc.chokey()
+			smtpRES = shmainReq('smtp',apikey,options.limitN,options.pageN)
+		for Mcount in range(len(smtpRES['matches'])):
+			if (('smtps' in repr(smtpRES['matches'][Mcount]['data']).lower()) or ('esmtp' in repr(smtpRES['matches'][Mcount]['data']).lower())):
+				smtpTRG = smtplib.SMTP_SSL(port=smtpRES['matches'][Mcount]['port'],timeout = 15)
+				tlsu = True
+			else:
+				smtpTRG = smtplib.SMTP(port=smtpRES['matches'][Mcount]['port'],timeout = 15)
+				tlsu = False
+			try:
+				smtpTRG.connect(str(smtpRES['matches'][Mcount]['ip_str']))
+				if (tlsu):
+					smtpTRG.starttls()
+				smtpTRG.ehlo('google.com')
+				smtpTRG.sendmail(Msender,Mreceiver,Mcontent)
+				smtpTRG.quit()
+				print (Fore.RED+str(smtpRES['matches'][Mcount]['ip_str'])+':'+str(smtpRES['matches'][Mcount]['port'])+'\t[!]VULNERABLE[!]'+Style.RESET_ALL)
+			except Exception as e:
+				if (('500' in str(e)) or ('501' in str(e))):
+					print (Fore.YELLOW+str(smtpRES['matches'][Mcount]['ip_str'])+':'+str(smtpRES['matches'][Mcount]['port'])+'\tSyntax Error - Maybe Vulnerable'+Style.RESET_ALL)
+				elif ('503' in str(e)):
+					print (Fore.YELLOW+str(smtpRES['matches'][Mcount]['ip_str'])+':'+str(smtpRES['matches'][Mcount]['port'])+'\tBad sequence of commands, or requires authentication - Maybe Vulnerable'+Style.RESET_ALL)
+				elif ('504' in str(e)):
+					print (Fore.RED+str(smtpRES['matches'][Mcount]['ip_str'])+':'+str(smtpRES['matches'][Mcount]['port'])+'\tCommand parameter is not implemented - Vulnerable'+Style.RESET_ALL)
+				elif (('510' in str(e)) or ('511' in str(e))):
+					print (Fore.YELLOW+str(smtpRES['matches'][Mcount]['ip_str'])+':'+str(smtpRES['matches'][Mcount]['port'])+'\tBad email address - Maybe Vulnerable'+Style.RESET_ALL)
+				elif ('512' in str(e)):
+					print(Fore.YELLOW+str(smtpRES['matches'][Mcount]['ip_str'])+':'+str(smtpRES['matches'][Mcount]['port'])+'\tHost server for the recipient`s domain name cannot be found in DNS - Maybe Vulnerable'+Style.RESET_ALL)
+				elif ('513' in str(e)):
+					print (Fore.YELLOW+str(smtpRES['matches'][Mcount]['ip_str'])+':'+str(smtpRES['matches'][Mcount]['port'])+'\tAddress type is incorrect - Maybe Vulnerable'+Style.RESET_ALL)
+				elif ('530' in str(e)):
+					print (Fore.GREEN+str(smtpRES['matches'][Mcount]['ip_str'])+':'+str(smtpRES['matches'][Mcount]['port'])+'\tAuthentication problem - SAFE'+Style.RESET_ALL)
+				elif ('541' in str(e)):
+					print (Fore.RED+str(smtpRES['matches'][Mcount]['ip_str'])+':'+str(smtpRES['matches'][Mcount]['port'])+'\tThe recipient address rejected your message - Vulnerable'+Style.RESET_ALL)
+				elif ('550' in str(e)):
+					print (Fore.YELLOW+str(smtpRES['matches'][Mcount]['ip_str'])+':'+str(smtpRES['matches'][Mcount]['port'])+'\tNon-existent email address - Maybe Vulnerable'+Style.RESET_ALL)
+				elif ('551' in str(e)):
+					print (Fore.GREEN+str(smtpRES['matches'][Mcount]['ip_str'])+':'+str(smtpRES['matches'][Mcount]['port'])+'\tUser not local or invalid address - relay denied - SAFE'+Style.RESET_ALL)
+				elif ('552' in str(e)):
+					print (Fore.RED+str(smtpRES['matches'][Mcount]['ip_str'])+':'+str(smtpRES['matches'][Mcount]['port'])+'\tExceeded storage allocation - Vulnerable'+Style.RESET_ALL)
+				elif ('553' in str(e)):
+					print (Fore.YELLOW+str(smtpRES['matches'][Mcount]['ip_str'])+':'+str(smtpRES['matches'][Mcount]['port'])+'\tMailbox name invalid - Maybe Vulnerable'+Style.RESET_ALL)
+				elif ('554' in str(e)):
+					print (Fore.YELLOW+str(smtpRES['matches'][Mcount]['ip_str'])+':'+str(smtpRES['matches'][Mcount]['port'])+'\tTransaction has failed - Maybe Vulnerable'+Style.RESET_ALL)
+				else:
+					print(Fore.MAGENTA+str(smtpRES['matches'][Mcount]['ip_str'])+':'+str(smtpRES['matches'][Mcount]['port'])+' - Protocol Problem(try again): \t'+str(e)+Style.RESET_ALL)
+		sys.exit()
+	else:
+		print (Fore.RED+'[!] There is something WRONG with Key file(Maybe its EMPTY or Key file NOT EXISTS)'+Style.RESET_ALL)
+		sys.exit()
+
+
+#################################
+
+
 if __name__=='__main__':
 	print (Fore.CYAN + '''
 				 _____        __ _     __    
@@ -500,6 +641,8 @@ if __name__=='__main__':
 		with your own query, you can use ' --cquery <QUERY> ' command.
 		Now, You can use DNS/Reverse_DNS/honeypot checking services and
 		using alert service to monitor a network range.
+		For Open Relay Bulk Scanner, you can provide page & limit filters(IF YOU WISH),if
+		you dont provide these filters, results will be just for first page.
 		ALERT FUNCTIONS ARE EXPERIMENTAL.
 		<< I extremly suggest to Read description for query that you want to use. >>
 		'''+Style.RESET_ALL)
@@ -535,43 +678,57 @@ if __name__=='__main__':
 	group.add_option('--dalert', action='store_true', default=False, dest='delete_alert', help='deleting alert with specified alert id')
 	group.add_option('--lalerts', action='store_true',default=False, dest='list_alerts', help='List whole activated alerts of your account')
 	parser.add_option_group(group)
+	group = OptionGroup(parser,'SMTP OpenRelay bulk Scanner')
+	group.add_option('--orscan', action='store_true', default=False, dest='orelay_scan', help='SMTP OpenRelay Bulk Scanner')
+	group.add_option('--orport', action='store', dest='orelay_port', help='SMTP OpenRelay Bulk Scanner`s port definition')
+	group.add_option('--mto', action='store', dest='mailto', help='Sender Address')
+	group.add_option('--mfr', action='store', dest='mailfrom', help='Receiver Address')
+	group.add_option('--mdt', action='store', dest='maildata', help='Receiver Address')
+	parser.add_option_group(group)
 	options,_ = parser.parse_args()
 	###
-	if (options.listf and not (options.alert_id and options.alert_name and options.alert_target and options.alert_expire and options.create_alert and options.list_alerts and options.delete_alert and options.alert_info and options.fname and options.honey_ip and options.rdns_IP and options.stfilter and options.dyfilter and options.cqu and options.keyfunk and options.api_key and options.dns_host and options.honeycheck)):
+	if (options.listf and not (options.maildata and options.mailfrom and options.mailto and options.orelay_scan and options.pageN and options.limitN and options.orelay_port and options.alert_id and options.alert_name and options.alert_target and options.alert_expire and options.create_alert and options.list_alerts and options.delete_alert and options.alert_info and options.fname and options.honey_ip and options.rdns_IP and options.stfilter and options.dyfilter and options.cqu and options.keyfunk and options.api_key and options.dns_host and options.honeycheck)):
 		listFunc(options.listf.lower())
 	###
-	elif (options.fname and not (options.alert_id and options.alert_name and options.alert_target and options.alert_expire and options.create_alert and options.list_alerts and options.delete_alert and options.alert_info and options.listf and options.honey_ip and options.rdns_IP and options.stfilter and options.dyfilter and options.cqu and options.keyfunk and options.api_key and options.dns_host and options.honeycheck)):
+	elif (options.fname and not (options.maildata and options.mailfrom and options.mailto and options.orelay_scan and options.pageN and options.limitN and options.orelay_port and options.alert_id and options.alert_name and options.alert_target and options.alert_expire and options.create_alert and options.list_alerts and options.delete_alert and options.alert_info and options.listf and options.honey_ip and options.rdns_IP and options.stfilter and options.dyfilter and options.cqu and options.keyfunk and options.api_key and options.dns_host and options.honeycheck)):
 		manFunc(options.fname.lower())
 	###
-	elif (options.stfilter or options.dyfilter or options.cqu and not (options.alert_id and options.alert_name and options.alert_target and options.alert_expire and options.create_alert and options.list_alerts and options.delete_alert and options.alert_info and options.keyfunk and options.honey_ip and options.rdns_IP and options.api_key and options.fname and options.listf and options.dns_host and options.honeycheck)):
+	elif (options.stfilter or options.dyfilter or options.cqu and not (options.maildata and options.mailfrom and options.mailto and options.orelay_scan and options.orelay_port and options.alert_id and options.alert_name and options.alert_target and options.alert_expire and options.create_alert and options.list_alerts and options.delete_alert and options.alert_info and options.keyfunk and options.honey_ip and options.rdns_IP and options.api_key and options.fname and options.listf and options.dns_host and options.honeycheck)):
 		shprereq(options.stfilter,options.dyfilter,options.cqu)
 	###
-	elif (options.keyfunk and not (options.alert_id and options.alert_name and options.alert_target and options.alert_expire and options.create_alert and options.list_alerts and options.delete_alert and options.alert_info and options.fname and options.honey_ip and options.stfilter and options.dyfilter and options.rdns_IP and options.cqu and options.listf and options.dns_host and options.honeycheck)):
+	elif (options.keyfunk and not (options.maildata and options.mailfrom and options.mailto and options.orelay_scan and options.pageN and options.limitN and options.orelay_port and options.alert_id and options.alert_name and options.alert_target and options.alert_expire and options.create_alert and options.list_alerts and options.delete_alert and options.alert_info and options.fname and options.honey_ip and options.stfilter and options.dyfilter and options.rdns_IP and options.cqu and options.listf and options.dns_host and options.honeycheck)):
 		keyF(options.keyfunk.lower(),options.api_key)
-	### az inja
-	elif (options.honeycheck and not (options.alert_id and options.alert_name and options.alert_target and options.alert_expire and options.create_alert and options.list_alerts and options.delete_alert and options.alert_info and options.keyfunk and options.fname and options.stfilter and options.rdns_IP and options.dyfilter and options.dns_host and options.cqu and options.listf)):
+	###
+	elif (options.honeycheck and not (options.maildata and options.mailfrom and options.mailto and options.orelay_scan and options.pageN and options.limitN and options.orelay_port and options.alert_id and options.alert_name and options.alert_target and options.alert_expire and options.create_alert and options.list_alerts and options.delete_alert and options.alert_info and options.keyfunk and options.fname and options.stfilter and options.rdns_IP and options.dyfilter and options.dns_host and options.cqu and options.listf)):
 		if (options.honey_ip):
 			Hchecker(options.honey_ip)
 		else:
 			print (Fore.RED+'[!] You did not Enter The Target IP Address'+Style.RESET_ALL)
 	###
-	elif (options.dns_host and not (options.alert_id and options.alert_name and options.alert_target and options.alert_expire and options.create_alert and options.list_alerts and options.delete_alert and options.alert_info and options.rdns_IP and options.honey_ip and options.keyfunk and options.honeycheck and options.fname and options.stfilter and options.dyfilter and options.cqu and options.listf)):
+	elif (options.dns_host and not (options.maildata and options.mailfrom and options.mailto and options.orelay_scan and options.orelay_port and options.alert_id and options.alert_name and options.alert_target and options.alert_expire and options.create_alert and options.list_alerts and options.delete_alert and options.alert_info and options.rdns_IP and options.honey_ip and options.keyfunk and options.honeycheck and options.fname and options.stfilter and options.dyfilter and options.cqu and options.listf)):
 		dnscheck(options.dns_host)
 	###
-	elif (options.rdns_IP and not (options.alert_id and options.alert_name and options.alert_target and options.alert_expire and options.create_alert and options.list_alerts and options.delete_alert and options.alert_info and options.dns_host and options.honey_ip and options.keyfunk and options.honeycheck and options.fname and options.stfilter and options.dyfilter and options.cqu and options.listf)):
+	elif (options.rdns_IP and not (options.maildata and options.mailfrom and options.mailto and options.orelay_scan and options.orelay_port and options.alert_id and options.alert_name and options.alert_target and options.alert_expire and options.create_alert and options.list_alerts and options.delete_alert and options.alert_info and options.dns_host and options.honey_ip and options.keyfunk and options.honeycheck and options.fname and options.stfilter and options.dyfilter and options.cqu and options.listf)):
 		Rdnscheck(options.rdns_IP)
 	###
-	elif (options.create_alert and options.alert_name and options.alert_target and not (options.alert_id and options.list_alerts and options.delete_alert and options.alert_info and options.rdns_IP and options.dns_host and options.honey_ip and options.keyfunk and options.honeycheck and options.fname and options.stfilter and options.dyfilter and options.cqu and options.listf)):
+	elif (options.create_alert and options.alert_name and options.alert_target and not (options.maildata and options.mailfrom and options.mailto and options.orelay_scan and options.orelay_port and options.alert_id and options.list_alerts and options.delete_alert and options.alert_info and options.rdns_IP and options.dns_host and options.honey_ip and options.keyfunk and options.honeycheck and options.fname and options.stfilter and options.dyfilter and options.cqu and options.listf)):
 		newalert(options.alert_name,options.alert_target,options.alert_expire)
 	###
-	elif (options.alert_id and options.alert_info and not (options.create_alert and options.alert_name and options.alert_target and options.list_alerts and options.delete_alert and options.rdns_IP and options.dns_host and options.honey_ip and options.keyfunk and options.honeycheck and options.fname and options.stfilter and options.dyfilter and options.cqu and options.listf)):
+	elif (options.alert_id and options.alert_info and not (options.maildata and options.mailfrom and options.mailto and options.orelay_scan and options.orelay_port and options.create_alert and options.alert_name and options.alert_target and options.list_alerts and options.delete_alert and options.rdns_IP and options.dns_host and options.honey_ip and options.keyfunk and options.honeycheck and options.fname and options.stfilter and options.dyfilter and options.cqu and options.listf)):
 		alertinfo(options.alert_id)
 	###
-	elif (options.alert_id and options.delete_alert and not (options.create_alert and options.alert_name and options.alert_target and options.list_alerts and options.alert_info and options.rdns_IP and options.dns_host and options.honey_ip and options.keyfunk and options.honeycheck and options.fname and options.stfilter and options.dyfilter and options.cqu and options.listf)):
+	elif (options.alert_id and options.delete_alert and not (options.maildata and options.mailfrom and options.mailto and options.orelay_scan and options.orelay_port and options.create_alert and options.alert_name and options.alert_target and options.list_alerts and options.alert_info and options.rdns_IP and options.dns_host and options.honey_ip and options.keyfunk and options.honeycheck and options.fname and options.stfilter and options.dyfilter and options.cqu and options.listf)):
 		alertdel(options.alert_id)
 	###
-	elif (options.list_alerts and not (options.create_alert and options.alert_name and options.alert_target and options.alert_id and options.delete_alert and options.alert_info and options.rdns_IP and options.dns_host and options.honey_ip and options.keyfunk and options.honeycheck and options.fname and options.stfilter and options.dyfilter and options.cqu and options.listf)):
+	elif (options.list_alerts and not (options.maildata and options.mailfrom and options.mailto and options.orelay_scan and options.orelay_port and options.create_alert and options.alert_name and options.alert_target and options.alert_id and options.delete_alert and options.alert_info and options.rdns_IP and options.dns_host and options.honey_ip and options.keyfunk and options.honeycheck and options.fname and options.stfilter and options.dyfilter and options.cqu and options.listf)):
 		alertlist()
+	###
+	elif (options.maildata and options.mailfrom and options.mailto and options.orelay_scan and not (options.listf and options.alert_id and options.alert_name and options.alert_target and options.alert_expire and options.create_alert and options.list_alerts and options.delete_alert and options.alert_info and options.fname and options.honey_ip and options.rdns_IP and options.stfilter and options.dyfilter and options.cqu and options.keyfunk and options.api_key and options.dns_host and options.honeycheck)):
+		if (options.orelay_port):
+			POpenRelay(options.orelay_port,options.mailfrom,options.mailto,options.maildata)
+		else:
+			print (Fore.YELLOW+"*** You didnt specified port, it will check smtp servers on all ports ***"+Style.RESET_ALL)
+			noPOpenRelay(options.mailfrom,options.mailto,options.maildata)
 	###
 	else:
 		parser.print_help()
