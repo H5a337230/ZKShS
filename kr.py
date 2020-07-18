@@ -56,9 +56,9 @@ class kre:
         for length in range(len(self.tkeys)):
             print (str(length)+') '+self.tkeys[length])
         try:
-            keyindex = int(raw_input(Fore.YELLOW+'\n[?] Enter the index number of key that you want to be used: '))
+            keyindex = int(raw_input(Fore.BLUE+'\n[?] Enter the index number of key that you want to be used: '))
         except:
-            keyindex = int(input(Fore.YELLOW+'\n[?] Enter the index number of key that you want to be used: '))
+            keyindex = int(input(Fore.BLUE+'\n[?] Enter the index number of key that you want to be used: '))
         return self.tkeys[keyindex]
 
     def help_menu(self):
