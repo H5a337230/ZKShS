@@ -680,7 +680,7 @@ if __name__=='__main__':
 	parser.add_option_group(group)
 	group = OptionGroup(parser,'SMTP OpenRelay bulk Scanner')
 	group.add_option('--orscan', action='store_true', default=False, dest='orelay_scan', help='SMTP OpenRelay Bulk Scanner')
-	group.add_option('--orport', action='store', dest='orelay_port', help='SMTP OpenRelay Bulk Scanner`s port definition')
+	group.add_option('--orport', action='store', dest='orelay_port', help='SMTP OpenRelay Bulk Scanner`s port definition', type='int')
 	group.add_option('--mto', action='store', dest='mailto', help='Sender Address')
 	group.add_option('--mfr', action='store', dest='mailfrom', help='Receiver Address')
 	group.add_option('--mdt', action='store', dest='maildata', help='Receiver Address')
