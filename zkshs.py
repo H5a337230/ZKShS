@@ -284,6 +284,7 @@ def shmainReq(Squery,Skey,limitQ,pageQ):
 		responseDATA = loads(responseDATA.text)   # responseDATA.text OR responseDATA.content
 		if (responseDATA.get('error', None)):
 			print (Fore.RED+'[!] '+str(responseDATA['error'])+Style.RESET_ALL)
+			sys.exit()
 		else:
 			return responseDATA
 			#for Mcount in range(len(responseDATA['matches'])):
