@@ -54,8 +54,6 @@ Adding Experimental SMTP Bulk Scanner using shodan
 
 **ETH**: 0x657841Ab47A56C8dDB3ff6e778bbfd0A5704d77E
 
-**ZEC**: zs1s6cc59yuf4f2khk06jd4rm7h0xa8c3snxvld0st9n7npwff8je5vjt7mqs2wle6xkvkjsestmsy
-
 **XRP**: rMeHgx5CQCvzY84EYrY7UCY5NPEECaoFHN    - NO Destination TAG
 
 **DASH**: Xg9M1KXArvE8q2mhAREWpPWU4rAAi2nxFo
